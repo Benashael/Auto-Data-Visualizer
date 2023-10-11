@@ -5,7 +5,6 @@ import seaborn as sns
 import plotly.express as px
 import zipfile
 import io
-import pdfcrowd
 
 # Set Streamlit page title and icon
 st.set_page_config(page_title="Data Viz App", page_icon=":bar_chart:")
@@ -218,43 +217,5 @@ if page == "Tutorial":
     st.subheader("Download Tutorial as PDF")
     tutorial_pdf = st.button("Download Tutorial PDF")
 
-    if tutorial_pdf:
-        # Create a PDFCrowd client using your API key
-        pdf_client = pdfcrowd.Client("YOUR_PDFCROWD_API_KEY")
-
-        # Generate the PDF
-        st.write("Generating the PDF...")
-        pdf_filename = "data_viz_tutorial.pdf"
-
-        # HTML content for the tutorial page
-        html_content = """
-        <html>
-        <head>
-        <title>Data Visualization Tutorial</title>
-        </head>
-        <body>
-        <h1>Data Visualization Tutorial</h1>
-        <p>Welcome to the tutorial page where you can learn about different data visualization metrics.</p>
-        <p>Here are some explanations for common data visualization metrics:</p>
-        <ul>
-            <li>Matplotlib Line Plot: A line plot displays data points on a line. It's used to visualize trends over time.</li>
-            <li>Seaborn Pairplot: A pairplot is a grid of plots that displays pairwise relationships between variables.</li>
-            <li>Plotly Scatter Plot: A scatter plot visualizes the relationship between two variables with interactivity.</li>
-            <li>Seaborn Violin Plot: A violin plot shows the distribution of data across categories.</li>
-            <li>Matplotlib Area Plot: An area plot is similar to a line plot but with the area filled in with color.</li>
-            <li>Seaborn Heatmap: A heatmap represents data with colors to visualize relationships.</li>
-            <li>Matplotlib Pie Chart: A pie chart displays data as slices of a pie to show proportions.</li>
-        </ul>
-        <p>Learn more about data visualization and create your own visualizations using the Data Visualizer page.</p>
-        </body>
-        </html>
-        """
-
-        try:
-            with open(pdf_filename, 'wb') as pdf_file:
-                pdf_client.convertString(html_content, pdf_file)
-            st.write(f"PDF generated successfully. You can download it [here]({pdf_filename}).")
-        except pdfcrowd.Error as why:
-            st.error(f"PDF generation failed: {why}")
-
+   
 
