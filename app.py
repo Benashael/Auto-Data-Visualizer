@@ -37,13 +37,14 @@ if page == "Data Visualizer":
         }
         selected_example = st.sidebar.selectbox("Select an example dataset", list(example_datasets.keys()))
 
-        try:
-            data = pd.read_csv(example_datasets.get(selected_example, ""))
-        except Exception as e:
-            st.error(f"Error: {str(e)}")
-            st.stop()  # Stop execution if there's an error
+        if selected_example:
+            try:
+                data = pd.read_csv(example_datasets.get(selected_example, ""))
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
+                st.stop()  # Stop execution if there's an error
 
-    if data is not None and not data.empty:  # Check if data is loaded successfully
+    if data is not None and not data.empty:
         # Automatically select visualization options
         st.sidebar.subheader("Visualization Settings")
         selected_columns = data.columns
@@ -106,6 +107,7 @@ if page == "Data Visualizer":
             else:
                 st.plotly_chart(plot)
 
+        st.warning("Please note that the data used for these visualizations is not displayed or stored.")
     else:
         st.warning("Please provide a valid CSV file or select a different dataset.")
 
